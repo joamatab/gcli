@@ -15,16 +15,18 @@ def _print_projects_list(projects_list):
 
 
 def projects_list(search=None):
+    """ lists gitlab projects """
     projects = gl.projects.list(search=search)
     _print_projects_list(projects)
 
 
 def get_project_attributes(project_id):
+    """ get project attributes """
     p = gl.projects.get(project_id)
     return p.attributes
 
 
-def test_get_project_attributes():
+def _demo_get_project_attributes():
     assert get_project_attributes(191)
 
 
