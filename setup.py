@@ -13,7 +13,7 @@ DEPENDENCIES = [
 
 
 setup(
-    version="0.0.0",
+    version="0.0.1",
     name="gcli",
     packages=find_packages(),
     # package_data={"": ["*.lsf", "*.json"]},
