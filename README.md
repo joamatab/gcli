@@ -18,13 +18,13 @@ Command line to:
 
 # Installation
 
-Type `pip install gcli --upgrade` in a terminal
+Type `pip install gitcli --upgrade` in a terminal
 
 You will need to create a token in Gitlab and add it to your local config in `~/.gcli.yml`
 
 ```
 git_url: https://gitlab.com
-private_token: AddYourTokenTo ~/.gcli.yml
+private_token: AddYourTokenTo ~/.gitcli.yml
 wiki2url:
     wiki1_name: wiki1_url
 templates:

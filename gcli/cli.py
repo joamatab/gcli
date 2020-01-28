@@ -85,7 +85,7 @@ def issues_project(project_id):
 @click.command(name="remove")
 @click.argument("path", default=None, required=False)
 def remove(path=None):
-    """ Stop tracking a repo by removing its path from config.yml """
+    """ Stop tracking a repo by removing its path from ~/.gitcli.yml """
     remove_path(path)
 
 

@@ -1,4 +1,4 @@
-""" loads a configuration from a config file on your disk `~/.gcli.yml`
+""" loads a configuration from a config file on your disk `~/.gitcli.yml`
 the config file stores the path of all the repos that you download
 
 wiki2url:
@@ -22,7 +22,7 @@ __version__ = "0.0.1"
 
 default = """
 git_url: https://gitlab.com
-private_token: AddYourTokenTo ~/.gcli.yml
+private_token: AddYourTokenTo ~/.gitcli.yml
 """
 if sys.platform == "win32":
     operating_system = "windows"
@@ -44,7 +44,7 @@ home = pathlib.Path.home()
 cwd = pathlib.Path(__file__).parent.absolute()
 repo = cwd.parent
 cwd_config = pathlib.Path.cwd() / "config.yml"
-local_config_path = str(home / ".gcli.yml")
+local_config_path = str(home / ".gitcli.yml")
 
 
 CONFIG = hiyapyco.load(
@@ -58,7 +58,7 @@ CONFIG = hiyapyco.load(
 CONFIG["root"] = cwd
 CONFIG["repo"] = repo
 CONFIG["home"] = home
-CONFIG["log_path"] = home / ".gcli.log"
+CONFIG["log_path"] = home / ".gitcli.log"
 CONFIG["local_config_path"] = local_config_path
 CONFIG["os"] = operating_system
 CONFIG["version"] = __version__
@@ -69,7 +69,7 @@ CONFIG["notebooks_path"] = home / "notebooks"
 
 
 def create_local_config(local_config_path=local_config_path):
-    """ Creates a local config file ~/.gcli.yml in your computer """
+    """ Creates a local config file ~/.gitcli.yml in your computer """
 
     if os.path.exists(local_config_path):
         return "Local configuration file {} already exists".format(local_config_path)
@@ -117,7 +117,7 @@ def append_config(config, path=local_config_path):
 
 
 def append_path2url(path, url, config_path=local_config_path):
-    """ appends CONFIG dict into .gcli.yml """
+    """ appends CONFIG dict into .gitcli.yml """
     existing_config = read_config(config_path)
     if existing_config is None:
         existing_config = {}
@@ -147,7 +147,7 @@ def print_config(key=None):
 
 
 def remove_path(path=None, config_path=local_config_path):
-    """ removes repo path from .gcli.yml """
+    """ removes repo path from .gitcli.yml """
     existing_config = read_config(config_path)
     if existing_config.get("path2url") is None:
         existing_config["path2url"] = {}
