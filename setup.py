@@ -1,15 +1,8 @@
 from setuptools import setup, find_packages
 
-DEPENDENCIES = [
-    "click",
-    "distro",
-    "cookiecutter",
-    "hiyapyco",
-    "requests",
-    "gitpython",
-    "cryptography",
-    "python-gitlab"
-]
+def get_install_requires():
+    with open("requirements.txt", "r") as f:
+        return [line.strip() for line in f.readlines() if not line.startswith("-")]
 
 
 setup(
@@ -23,7 +16,7 @@ setup(
     # setup_requires=['setuptools_scm'],
     description="Git Command Line Interface",
     author="joaquin",
-    install_requires=DEPENDENCIES,
+    install_requires=get_install_requires(),
     tests_require=["pytest", "tox"],
     python_requires=">=3",
     entry_points='''

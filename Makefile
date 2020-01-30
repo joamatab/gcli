@@ -2,7 +2,7 @@ help:
 	@echo 'make install:           Install package with pip -e . in your system python'
 
 install: 
-	pip install -e . 
+	pip install -r requirements.txt
 
 hook:
 	cp .hooks/pre-commit .git/hooks/pre-commit
