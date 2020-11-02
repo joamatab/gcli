@@ -41,9 +41,7 @@ def clone(url, repo_path=os.getcwd()):
     known_hosts_path = os.path.join(home, ".ssh", "known_hosts")
 
     if not os.path.exists(known_hosts_path):
-        host = subprocess.check_output(
-            ["ssh-keyscan", CONFIG['git_url']]
-        ).decode()
+        host = subprocess.check_output(["ssh-keyscan", CONFIG["git_url"]]).decode()
         with open(known_hosts_path, "w") as f:
             f.write(host)
 

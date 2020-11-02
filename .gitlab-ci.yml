@@ -20,8 +20,6 @@ test:
 publish:
     stage: build
     script:
-    - make build upload 
+    - make build upload
     only:
     - release
-
-

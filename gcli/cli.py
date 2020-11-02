@@ -55,7 +55,7 @@ def status():
     try:
         requests.get(url, timeout=1)
         print(f"[V] Git server {url} is up and available")
-    except Exception as e:
+    except ConnectionError:
         print(f"[X] Could not reach the Git server ({url})")
 
     print("[V] Python {}".format(sys.version[:5]))
@@ -128,14 +128,14 @@ def clone(project_id):
             project_id = projects[0].get_id()
         else:
             if projects:
-                print(
-                    "Found multiple project_ids, try again with the exact project name or project id number"
+                raise ValueError(
+                    "Found multiple project_ids. "
+                    "Try again with the exact project name or project id number"
+                    "Valid projects"
+                    f"{_print_projects_list(projects)}"
                 )
-                _print_projects_list(projects)
-                sys.exit()
             else:
-                print("Type a valid project name or project id")
-                sys.exit()
+                raise ValueError("Type a valid project name or project id")
         p = gl.projects.get(project_id)
 
     repo_name = p.attributes["name"]
@@ -170,7 +170,8 @@ def pull_notebooks():
 @click.command(name="template")
 @click.argument("template_name_or_url", required=False, default=None)
 def template(template_name_or_url):
-    """ add cookiecutter template (url, python_project, wiki, jupyter_notebook_project)
+    """add cookiecutter template
+    (url, python_project, wiki, jupyter_notebook_project)
     """
 
     overwrite_if_exists = True
@@ -179,7 +180,8 @@ def template(template_name_or_url):
     if template_name_or_url in templates:
         template_name_or_url = templates.get(template_name_or_url)
     else:
-        e = f"`{template_name_or_url}` is not a valid cookiecutte template. please use a valid cookiecutter template url or name:"
+        e = f"`{template_name_or_url}` is not a valid cookiecutte template. "
+        "Please use a valid cookiecutter template url or name:"
         if templates:
             print([f"- {template} \n" for template in templates.keys()])
             # print('\n'.join(templates.keys()))
@@ -248,8 +250,8 @@ def config_get(key):
     help="Show the version number.",
 )
 def cli():
-    """ `gcli` is a command line tool to create repos, test and keep your computer up to date
-    """
+    """`gcli` is a command line tool for Git
+    You can create templates and keep your repos up to date"""
 
 
 pull.add_command(pull_repos)

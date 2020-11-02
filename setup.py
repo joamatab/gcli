@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
 
+
 def get_install_requires():
     with open("requirements.txt", "r") as f:
         return [line.strip() for line in f.readlines() if not line.startswith("-")]
@@ -19,8 +20,8 @@ setup(
     install_requires=get_install_requires(),
     tests_require=["pytest", "tox"],
     python_requires=">=3",
-    entry_points='''
+    entry_points="""
         [console_scripts]
         gcli=gcli.cli:cli
-    ''',
+    """,
 )

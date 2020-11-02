@@ -19,5 +19,3 @@ help:
 
 open:
 	open build/html/index.html
-
-

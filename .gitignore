@@ -105,5 +105,5 @@ coverage.xml
 # PyBuilder
 target/
 
-# PYC 
+# PYC
 *.pyc
