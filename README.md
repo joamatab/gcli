@@ -1,4 +1,4 @@
-# Git Command Line 0.0.2
+# gitcli: Git Command Line 0.0.2
 
 Command line to:
 
