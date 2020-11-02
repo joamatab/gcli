@@ -4,12 +4,9 @@ help:
 install: 
 	pip install -r requirements.txt
 
-hook:
-	cp .hooks/pre-commit .git/hooks/pre-commit
-	cp .hooks/pre-push .git/hooks/pre-push
-	
-unhook:
-	rm .git/hooks/*
+lint:
+	flake8 gcli
+
 
 build:
 	pip install devpi-client wheel
