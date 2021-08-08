@@ -16,7 +16,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.linkcode",
     "matplotlib.sphinxext.plot_directive",
-    "sphinx_click.ext",
+    "sphinx_click",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

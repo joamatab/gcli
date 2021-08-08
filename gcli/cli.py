@@ -11,7 +11,7 @@ import requests
 import gitlab
 from cookiecutter.main import cookiecutter
 
-from gcli.pull_repos import pull_repos as pull_gitlab_repos
+from gcli.pull_repos import pull_repos as pull_repos_cloned
 from gcli.clone import clone_wikis
 from gcli.clone import clone_notebooks
 from gcli.clone import clone as clone_repo
@@ -39,7 +39,7 @@ def _print_issues_list(issues_list, key="title"):
 
 
 def print_version(ctx, param, value):
-    """ Prints the version """
+    """Prints the version"""
     if not value or ctx.resilient_parsing:
         return
     click.echo(__version__)
@@ -48,7 +48,7 @@ def print_version(ctx, param, value):
 
 @click.command()
 def status():
-    """ Show CLI version, gitlab connection status and python version"""
+    """Show CLI version, gitlab connection status and python version"""
     print("CLI v{}".format(__version__))
 
     url = CONFIG["git_url"]
@@ -63,12 +63,12 @@ def status():
 
 @click.group()
 def issues():
-    """ Work with gitlab issues"""
+    """Work with gitlab issues"""
 
 
 @click.command(name="list")
 def issues_list():
-    """ list my Gitlab issues"""
+    """list my Gitlab issues"""
     issues = gl.issues.list()
     _print_issues_list(issues)
 
@@ -76,7 +76,7 @@ def issues_list():
 @click.command(name="project")
 @click.argument("project_id")
 def issues_project(project_id):
-    """ list gitlab issues for a project_id number"""
+    """list gitlab issues for a project_id number"""
     p = gl.projects.get(int(project_id))
     issues = p.issues.list()
     _print_issues_list(issues)
@@ -85,19 +85,19 @@ def issues_project(project_id):
 @click.command(name="remove")
 @click.argument("path", default=None, required=False)
 def remove(path=None):
-    """ Stop tracking a repo by removing its path from ~/.gitcli.yml """
+    """Stop tracking a repo by removing its path from ~/.gitcli.yml"""
     remove_path(path)
 
 
 @click.group()
 def project():
-    """ Work with gitlab projects"""
+    """Work with gitlab projects"""
 
 
 @click.command(name="list")
 @click.argument("key", default=None, required=False)
 def project_list(key):
-    """ search Gitlab projects"""
+    """search Gitlab projects"""
     projects = gl.projects.list(all=True, search=key)
     _print_projects_list(projects)
 
@@ -106,7 +106,7 @@ def project_list(key):
 @click.argument("project_id")
 @click.argument("project_attribute", default=None, required=False)
 def project_info(project_id, project_attribute):
-    """ get Gitlab's project info from project_id"""
+    """get Gitlab's project info from project_id"""
     project = gl.projects.get(int(project_id))
     if project_attribute:
         print(project.attributes.get(project_attribute))
@@ -118,7 +118,7 @@ def project_info(project_id, project_attribute):
 @click.command(name="clone")
 @click.argument("project_id")
 def clone(project_id):
-    """ Clone a project by name or project_id"""
+    """Clone a project by name or project_id"""
     try:
         p = gl.projects.get(project_id)
     except Exception:
@@ -146,24 +146,24 @@ def clone(project_id):
 
 @click.group()
 def pull():
-    """ git clone or git pull Gitlab projects """
+    """Git pull all your cloned projects"""
 
 
 @click.command(name="repos")
 def pull_repos():
-    """ git pull on each project downloaded"""
-    pull_gitlab_repos()
+    """git pull on each project downloaded"""
+    pull_repos_cloned()
 
 
 @click.command(name="wikis")
 def pull_wikis():
-    """ clone all the wikis in ~/files/wikis"""
+    """clone all the wikis in ~/files/wikis"""
     clone_wikis()
 
 
 @click.command(name="notebooks")
 def pull_notebooks():
-    """ clone all the python jupyter notebooks"""
+    """clone all the python jupyter notebooks"""
     clone_notebooks()
 
 
@@ -193,7 +193,7 @@ def template(template_name_or_url):
 
 @click.command(name="key")
 def get_ssh_key():
-    """ Show public SSH key (create one if does not exist) """
+    """Show public SSH key (create one if does not exist)"""
     ssh_folder = home / ".ssh"
     key_path_public = ssh_folder / "id_rsa.pub"
     key_path_private = ssh_folder / "id_rsa"
@@ -236,7 +236,7 @@ def get_ssh_key():
 @click.command(name="config")
 @click.argument("key", required=False, default=None)
 def config_get(key):
-    """ Shows key values from CONFIG """
+    """Shows key values from CONFIG"""
     print_config(key)
 
 
