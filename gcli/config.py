@@ -8,6 +8,7 @@ templates:
 
 """
 
+
 import sys
 import pathlib
 import os
@@ -24,10 +25,10 @@ default = """
 git_url: https://gitlab.com
 private_token: AddYourTokenTo ~/.gitcli.yml
 """
-if sys.platform == "win32":
-    operating_system = "windows"
-elif sys.platform == "darwin":
+if sys.platform == "darwin":
     operating_system = "mac"
+elif sys.platform == "win32":
+    operating_system = "windows"
 else:
     try:
         if distro.linux_distribution()[0].startswith("CentOS"):
@@ -50,10 +51,11 @@ local_config_path = str(home / ".gitcli.yml")
 CONFIG = hiyapyco.load(
     default,
     str(cwd_config),
-    str(local_config_path),
+    local_config_path,
     failonmissingfiles=False,
     loglevelmissingfiles=logging.DEBUG,
 )
+
 
 CONFIG["root"] = cwd
 CONFIG["repo"] = repo
@@ -72,7 +74,7 @@ def create_local_config(local_config_path=local_config_path):
     """ Creates a local config file ~/.gitcli.yml in your computer """
 
     if os.path.exists(local_config_path):
-        return "Local configuration file {} already exists".format(local_config_path)
+        return f"Local configuration file {local_config_path} already exists"
 
     # Load the template and render
     config = "path2url: {}"
@@ -81,9 +83,9 @@ def create_local_config(local_config_path=local_config_path):
     try:
         with open(local_config_path, "w") as f:
             f.write(config)
-        print("Generated local configuration file {}".format(local_config_path))
+        print(f"Generated local configuration file {local_config_path}")
     except Exception:
-        print("No access to local configuration file {}".format(local_config_path))
+        print(f"No access to local configuration file {local_config_path}")
 
 
 def save_config(config, path=local_config_path):
@@ -92,7 +94,7 @@ def save_config(config, path=local_config_path):
         with open(path, "w") as f:
             f.write(hiyapyco.dump(config))
     except Exception:
-        print("No access to local configuration file {}".format(local_config_path))
+        print(f"No access to local configuration file {local_config_path}")
 
 
 def read_config(path=local_config_path):
@@ -101,9 +103,8 @@ def read_config(path=local_config_path):
         return hiyapyco.load(
             path, failonmissingfiles=False, loglevelmissingfiles=logging.DEBUG
         )
-    else:
-        create_local_config(path)
-        read_config(path)
+    create_local_config(path)
+    read_config(path)
 
 
 def append_config(config, path=local_config_path):
@@ -120,8 +121,7 @@ def append_path2url(path, url, config_path=local_config_path):
     """ appends CONFIG dict into .gitcli.yml """
     existing_config = read_config(config_path)
     if existing_config is None:
-        existing_config = {}
-        existing_config["path2url"] = {}
+        existing_config = {"path2url": {}}
     elif existing_config.get("path2url") is None:
         existing_config["path2url"] = {}
     elif path not in existing_config["path2url"].keys():
@@ -152,10 +152,10 @@ def remove_path(path=None, config_path=local_config_path):
     if existing_config.get("path2url") is None:
         existing_config["path2url"] = {}
     elif path in existing_config["path2url"].keys():
-        print("stopped tracking {} ".format(path))
+        print(f"stopped tracking {path} ")
         existing_config["path2url"].pop(path)
     elif path:
-        print("{} is not being tracked".format(path))
+        print(f"{path} is not being tracked")
         print("Projects currently tracked:")
         print_paths(existing_config["path2url"].keys())
     else:

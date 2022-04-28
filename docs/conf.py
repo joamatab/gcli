@@ -111,4 +111,4 @@ def linkcode_resolve(domain, info):
     if not info["module"]:
         return None
     filename = info["module"].replace(".", "/")
-    return "https://github.com/joamatab/gcli/blob/master/{}.py".format(filename)
+    return f"https://github.com/joamatab/gcli/blob/master/{filename}.py"

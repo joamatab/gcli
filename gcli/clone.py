@@ -8,7 +8,7 @@ from gcli.config import append_path2url
 
 def clone_name2url(name2url, path=os.getcwd()):
     """ clone urls into path directory """
-    print("cloning {} into {}".format(", ".join(name2url.keys()), path))
+    print(f'cloning {", ".join(name2url.keys())} into {path}')
     if not os.path.isdir(path):
         os.makedirs(path)
 
@@ -16,11 +16,11 @@ def clone_name2url(name2url, path=os.getcwd()):
         repo_path = os.path.join(path, repo_name)
 
         if os.path.isdir(repo_path):
-            print("git pull {}".format(repo_path))
+            print(f"git pull {repo_path}")
             g = git.cmd.Git(repo_path)
             g.pull()
         else:
-            print("git clone {} {}".format(repo_url, repo_path))
+            print(f"git clone {repo_url} {repo_path}")
             git.Repo.clone_from(repo_url, to_path=repo_path)
         append_path2url(repo_path, repo_url)
 
@@ -46,12 +46,12 @@ def clone(url, repo_path=os.getcwd()):
             f.write(host)
 
     if os.path.isdir(repo_path):
-        print("git pull {}".format(repo_path))
+        print(f"git pull {repo_path}")
         g = git.cmd.Git(repo_path)
         g.pull()
 
     else:
-        print("git clone {} {}".format(url, repo_path))
+        print(f"git clone {url} {repo_path}")
         git.Repo.clone_from(url, to_path=repo_path)
     append_path2url(repo_path, url)
     return repo_path

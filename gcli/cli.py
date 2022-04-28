@@ -49,7 +49,7 @@ def print_version(ctx, param, value):
 @click.command()
 def status():
     """Show CLI version, gitlab connection status and python version"""
-    print("CLI v{}".format(__version__))
+    print(f"CLI v{__version__}")
 
     url = CONFIG["git_url"]
     try:
@@ -58,7 +58,7 @@ def status():
     except ConnectionError:
         print(f"[X] Could not reach the Git server ({url})")
 
-    print("[V] Python {}".format(sys.version[:5]))
+    print(f"[V] Python {sys.version[:5]}")
 
 
 @click.group()
@@ -126,16 +126,15 @@ def clone(project_id):
 
         if len(projects) == 1:
             project_id = projects[0].get_id()
+        elif projects:
+            raise ValueError(
+                "Found multiple project_ids. "
+                "Try again with the exact project name or project id number"
+                "Valid projects"
+                f"{_print_projects_list(projects)}"
+            )
         else:
-            if projects:
-                raise ValueError(
-                    "Found multiple project_ids. "
-                    "Try again with the exact project name or project id number"
-                    "Valid projects"
-                    f"{_print_projects_list(projects)}"
-                )
-            else:
-                raise ValueError("Type a valid project name or project id")
+            raise ValueError("Type a valid project name or project id")
         p = gl.projects.get(project_id)
 
     repo_name = p.attributes["name"]
