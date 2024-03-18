@@ -4,7 +4,7 @@ from gcli import __version__
 
 
 def test_version():
-    """ checks that the CLI returns the correct version """
+    """checks that the CLI returns the correct version"""
     runner = CliRunner()
     result = runner.invoke(cli, ["config", "version"])
 
