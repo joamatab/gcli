@@ -69,7 +69,7 @@ CONFIG["notebooks_path"] = home / "notebooks"
 
 
 def create_local_config(local_config_path=local_config_path):
-    """ Creates a local config file ~/.gitcli.yml in your computer """
+    """Creates a local config file ~/.gitcli.yml in your computer"""
 
     if os.path.exists(local_config_path):
         return "Local configuration file {} already exists".format(local_config_path)
@@ -87,7 +87,7 @@ def create_local_config(local_config_path=local_config_path):
 
 
 def save_config(config, path=local_config_path):
-    """ saves a CONFIG dict into disk """
+    """saves a CONFIG dict into disk"""
     try:
         with open(path, "w") as f:
             f.write(hiyapyco.dump(config))
@@ -96,7 +96,7 @@ def save_config(config, path=local_config_path):
 
 
 def read_config(path=local_config_path):
-    """ reads CONFIG dict from disk """
+    """reads CONFIG dict from disk"""
     if os.path.exists(path):
         return hiyapyco.load(
             path, failonmissingfiles=False, loglevelmissingfiles=logging.DEBUG
@@ -107,7 +107,7 @@ def read_config(path=local_config_path):
 
 
 def append_config(config, path=local_config_path):
-    """ appends CONFIG dict into disk """
+    """appends CONFIG dict into disk"""
     existing_config = read_config(path=path)
     if existing_config is None:
         create_local_config()
@@ -117,7 +117,7 @@ def append_config(config, path=local_config_path):
 
 
 def append_path2url(path, url, config_path=local_config_path):
-    """ appends CONFIG dict into .gitcli.yml """
+    """appends CONFIG dict into .gitcli.yml"""
     existing_config = read_config(config_path)
     if existing_config is None:
         existing_config = {}
@@ -130,13 +130,13 @@ def append_path2url(path, url, config_path=local_config_path):
 
 
 def print_paths(paths):
-    """ print paths list """
+    """print paths list"""
     for path in paths:
         print("  ", path)
 
 
 def print_config(key=None):
-    """ prints config key or all config Keys """
+    """prints config key or all config Keys"""
     if key:
         if CONFIG.get(key):
             print(CONFIG[key])
@@ -147,7 +147,7 @@ def print_config(key=None):
 
 
 def remove_path(path=None, config_path=local_config_path):
-    """ removes repo path from .gitcli.yml """
+    """removes repo path from .gitcli.yml"""
     existing_config = read_config(config_path)
     if existing_config.get("path2url") is None:
         existing_config["path2url"] = {}
