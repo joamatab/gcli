@@ -15,13 +15,13 @@ def _print_projects_list(projects_list):
 
 
 def projects_list(search=None):
-    """ lists gitlab projects """
+    """lists gitlab projects"""
     projects = gl.projects.list(search=search)
     _print_projects_list(projects)
 
 
 def get_project_attributes(project_id):
-    """ get project attributes """
+    """get project attributes"""
     p = gl.projects.get(project_id)
     return p.attributes
 

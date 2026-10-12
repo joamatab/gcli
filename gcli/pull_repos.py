@@ -5,8 +5,7 @@ from gcli.config import CONFIG
 
 
 def pull_repo(repo_path):
-    """ pull repo
-    """
+    """pull repo"""
 
     if os.path.isdir(repo_path):
         print("git pull: {}".format(repo_path))
@@ -15,7 +14,7 @@ def pull_repo(repo_path):
 
 
 def pull_repos():
-    """ git pull repos installed through the CLI
+    """git pull repos installed through the CLI
     reads repo paths and url ~/.gitcli.yml
     """
     path2url = CONFIG.get("path2url")

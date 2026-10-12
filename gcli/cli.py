@@ -20,7 +20,6 @@ from gcli.config import print_config
 from gcli.config import remove_path
 from gcli import __version__
 
-
 gl = gitlab.Gitlab(url=CONFIG["git_url"], private_token=CONFIG["private_token"])
 home = pathlib.Path.home()
 cwd = pathlib.Path.cwd()
