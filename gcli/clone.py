@@ -7,7 +7,7 @@ from gcli.config import append_path2url
 
 
 def clone_name2url(name2url, path=os.getcwd()):
-    """ clone urls into path directory """
+    """clone urls into path directory"""
     print("cloning {} into {}".format(", ".join(name2url.keys()), path))
     if not os.path.isdir(path):
         os.makedirs(path)
@@ -34,7 +34,7 @@ def clone_notebooks():
 
 
 def clone(url, repo_path=os.getcwd()):
-    """ clones a git repository
+    """clones a git repository
     if repo_path already exists, git pulls instead
     """
     home = os.path.expandvars("$HOME")
